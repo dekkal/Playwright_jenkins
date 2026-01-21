@@ -9,24 +9,17 @@ pipeline {
 
     stages {
 
-        stage('Configuration du projet') {
+        stage('Vérification versions') {
             steps {
-
-                // Nettoyage
-                sh 'rm -rf repo'
-
-                // Clonage du dépôt
-                sh 'git clone https://github.com/dekkal/Playwright_jenkins.git repo'
-
-                // Vérification des versions
                 sh 'node -v'
                 sh 'npx playwright --version'
+            }
+        }
 
-                // Accès au projet
-                dir('repo') {
-                    sh 'npm install'
-                    sh 'npx playwright test --project=chromium'
-                }
+        stage('Install & Run tests') {
+            steps {
+                sh 'npm install'
+                sh 'npx playwright test --project=chromium'
             }
         }
     }
