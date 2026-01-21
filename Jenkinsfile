@@ -13,7 +13,7 @@ stages{
             sh 'rm -rf repo'
            }
         steps{
-            sh "git clone https://github.com/dekkal/Playwright_jenkins.git"
+            sh "git clone https://github.com/dekkal/Playwright_jenkins.git repo"
              }
     steps{
         //check version node et playwright
