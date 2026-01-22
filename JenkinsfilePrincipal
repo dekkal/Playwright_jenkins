@@ -1,56 +1,48 @@
-stage('Lancement jobs parallèles') {
+pipeline {
+    agent any
 
-    agent {
-        docker {
-            //image with playwright and chromium browser
-            // image 'playwright/chromium:playwright-1.56.1'
-            image 'mcr.microsoft.com/playwright:v1.57.0-noble'
-            //permit the container to run as root user
-            args '--user=root --entrypoint=""'
-        }
-    }
-  stages {
+    stages {
 
-    
-
-
-
-        stage(" CLONE DU PROJET"){
-            steps{
-                //install git
-                sh 'apt-get update && apt-get install -y git'
-                //remove repo folder if exists
-                sh "rm -rf rep"
-                //clone the repo
-                echo 'version du git'
-                //clone the repo
-                sh "git clone https://github.com/admanehocine/PlaywrightJenkins.git rep"
-                //list files
-                sh "ls -la rep"
-            
-                //list files in current directory
-                  dir('rep'){
-                    //install dependencies and run tests
-                    //install playwright browsers
-                    sh "npm ci"
-                    //run tests with chromium
-                  
+        stage('Clone du projet') {
+            agent {
+                docker {
+                    image 'mcr.microsoft.com/playwright:v1.57.0-noble'
+                    args '--user=root --entrypoint=""'
+                }
+            }
+            steps {
+                sh 'rm -rf rep'
+                sh 'git clone https://github.com/admanehocine/PlaywrightJenkins.git rep'
+                dir('rep') {
+                    sh 'npm ci'
                 }
             }
         }
-        
-    }
-    parallel {
-        stage('Pushplaywright') {
-            steps {
-                build job: 'jobSmoke'
+
+        stage('Lancement jobs parallèles') {
+            parallel {
+
+                stage('Smoke UI') {
+                    steps {
+                        build job: 'jobSmoke'
+                    }
+                }
+
+                stage('Tests API') {
+                    steps {
+                        build job: 'jobJenkinsfile2'
+                    }
+                }
             }
         }
+    }
 
-        stage('Tests API') {
-            steps {
-                build job: 'jobJenkinsfile2'
-            }
+    post {
+        success {
+            echo '✅ Tous les jobs parallèles ont réussi'
+        }
+        failure {
+            echo '❌ Un job parallèle a échoué'
         }
     }
 }
