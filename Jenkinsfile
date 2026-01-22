@@ -2,7 +2,8 @@ pipeline {
     agent {
         docker {
             //image with playwright and chromium browser
-            image 'playwright/chromium:playwright-1.56.1'
+            // image 'playwright/chromium:playwright-1.56.1'
+            image 'mcr.microsoft.com/playwright:v1.57.0-noble'
             //permit the container to run as root user
             args '--user=root --entrypoint=""'
         }
@@ -23,12 +24,12 @@ pipeline {
         stage(" CLONE DU PROJET"){
             steps{
                 //install git
-                sh 'apt-get update && apt-get install -y git'
+                //sh 'apt-get update && apt-get install -y git'
                 //remove repo folder if exists
-                sh "rm -rf repo"
+                //sh "rm -rf repo"
                 //clone the repo
-                echo 'version du git'
-                sh 'git --version'
+                //echo 'version du git'
+                //sh 'git --version'
                 //clone the repo
                 sh "git clone https://github.com/admanehocine/PlaywrightJenkins.git repo"
                 //list files
