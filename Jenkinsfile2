@@ -15,11 +15,6 @@ pipeline {
             description: 'Choisir le navigateur'
         )
 
-        choice(
-            name: 'tags',
-            choices: ['@valid', '@addedToCart', '@test'],
-            description: 'Choisir le tag Playwright'
-        )
     }
 
     stages {
@@ -63,7 +58,7 @@ pipeline {
                             }
                         }
                     }   
-                 sh 'npx playwright --grep "@test" test  --project=chromium'
+                 sh 'npx playwright --grep "@valid" test  --project=chromium'
                 }
             }
         }
