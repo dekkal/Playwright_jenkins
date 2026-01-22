@@ -1,29 +1,53 @@
 pipeline {
     agent {
         docker {
+            //image with playwright and chromium browser
             image 'playwright/chromium:playwright-1.56.1'
+            //permit the container to run as root user
             args '--user=root --entrypoint=""'
         }
+    }
+    Parameters {
+       choice(name: 'Navigateur', choices: ['chromium', 'webkit', 'firefox'], description: 'Select the environment to deploy to')
     }
 
     stages {
         stage('Display versions') {
             steps {
+                //display node and npm versions
                 sh 'node --version'
+                //display npm version
                 sh 'npm --version'
             }
         }
         stage(" CLONE DU PROJET"){
             steps{
+                //install git
                 sh 'apt-get update && apt-get install -y git'
+                //remove repo folder if exists
                 sh "rm -rf repo"
+                //clone the repo
                 echo 'version du git'
                 sh 'git --version'
+                //clone the repo
                 sh "git clone https://github.com/admanehocine/PlaywrightJenkins.git repo"
+                //list files
                 sh "ls -la repo"
+            
+                //list files in current directory
                   dir('repo'){
+                    //install dependencies and run tests
                     sh "npm install"
+                    //install playwright browsers
                     sh "npx playwright install"
+                    //run tests with chromium
+                    script {
+                        if (params.Navigateur == 'chromium') {
+                            sh "npx playwright test --project=chromium"
+                        } else{
+                            error "Unsupported browser selected: ${params.Navigateur}"
+                        }
+                    }   
                     sh "npx playwright test --project=chromium"
                 }
             }
