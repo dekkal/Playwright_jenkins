@@ -25,12 +25,12 @@ pipeline {
         stage(" CLONE DU PROJET"){
             steps{
                 //install git
-                //sh 'apt-get update && apt-get install -y git'
+                sh 'apt-get update && apt-get install -y git'
                 //remove repo folder if exists
-               // sh "rm -rf repo"
+                sh "rm -rf repo"
                 //clone the repo
-                //echo 'version du git'
-                //sh 'git --version'
+                echo 'version du git'
+                sh 'git --version'
                 //clone the repo
                 sh "git clone https://github.com/admanehocine/PlaywrightJenkins.git repo"
                 //list files
