@@ -49,9 +49,9 @@ pipeline {
     post {
         always {
             script {
-                dir('repo') {
+                
                 if(params.ALLURE) {
-                    
+                dir('repo') {    
                     sh 'rm -rf allure-results/*'
                     unstash 'allure-results'
                     archiveArtifacts 'allure-results/*'
