@@ -24,7 +24,7 @@ pipeline {
         stage(" CLONE DU PROJET"){
             steps{
                 //install git
-                //sh 'apt-get update && apt-get install -y git'
+                sh 'apt-get update && apt-get install -y git'
                 //remove repo folder if exists
                 //sh "rm -rf repo"
                 //clone the repo
