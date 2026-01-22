@@ -36,7 +36,6 @@ pipeline {
             }
         }
     }
-
     post {
         success {
             echo 'Tous les jobs parallèles ont réussi'
