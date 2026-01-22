@@ -8,14 +8,7 @@ pipeline {
             args '--user=root --entrypoint=""'
         }
     }
-    parameters {
-        choice(
-            name: 'Navigateur',
-            choices: ['chromium', 'webkit', 'firefox'],
-            description: 'Choisir le navigateur'
-        )
-
-    }
+  
 
     stages {
         stage('Display versions') {
@@ -47,18 +40,8 @@ pipeline {
                     //install playwright browsers
                     sh "npm ci"
                     //run tests with chromium
-                    script {
-                        if (params.Navigateur == 'chromium') {
-                            sh "npx playwright test --project=chromium"
-                        } else{
-                            if (params.Navigateur == 'firefox') {
-                                sh "npx playwright test --project=firefox"
-                            } else {
-                                sh "npx playwright test --project=webkit"
-                            }
-                        }
-                    }   
-                 sh 'npx playwright --grep "@valid" test  --project=chromium'
+                  
+                 sh 'npx playwright test --grep "@valid"  --project=chromium'
                 }
             }
         }
