@@ -7,7 +7,7 @@ pipeline {
             args '--user=root --entrypoint=""'
         }
     }
-    Parameters {
+    parameters {
        choice(name: 'Navigateur', choices: ['chromium', 'webkit', 'firefox'], description: 'Select the environment to deploy to')
     }
 
