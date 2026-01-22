@@ -51,19 +51,13 @@ parameters {
             
                 //list files in current directory
                   dir('repo'){
-      
-
                     //install dependencies and run tests
                     //install playwright browsers
                     sh "npm ci"
                     //run tests with chromium
                     script {
                         if (params.Navigateur == 'chromium') {
-                            // sh "npx playwright test --project=chromium"
-    
-                            sh "npx playwright  test   --reporter=allure-playwright --project=chromium"
-                            stash name: 'allure-results', includes: 'allure-results/*'
-                          
+                            sh "npx playwright test --project=chromium"
                         } else{
                             if (params.Navigateur == 'firefox') {
                                 sh "npx playwright test --project=firefox"
@@ -72,7 +66,11 @@ parameters {
                             }
                         }
                     }
-                 
+                           script{
+                    if (params.tags == '@test') {
+                        sh 'npx playwright  test --grep  "@test"  --project=chromium'
+                                                }
+            }       
          
                   }
             }
@@ -80,8 +78,8 @@ parameters {
     }
 
     post{
-        //always {
-         //   echo 'The pipeline has completed successfully.'
+        always {
+            echo 'The pipeline has completed successfully.'
 //             script {
 //                 if (params.tags == '@test') {                   
                           
@@ -89,11 +87,13 @@ parameters {
 //            }
    
 // }
-          
-        build job: 'jobJenkinsfile2'
-       // }
+          build job: 'jobJenkinsfile2'
+        }
+    }
+
+
+
+
 
         
-}
-
 }
