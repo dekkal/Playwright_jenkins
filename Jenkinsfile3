@@ -47,7 +47,7 @@ pipeline {
         }
     }
    post {
-    always {
+    success {
         script {
             if(params.ALLURE) {
                 dir('repo25') {
