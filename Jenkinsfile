@@ -72,11 +72,7 @@ parameters {
                             }
                         }
                     }
-                           script{
-                    if (params.tags == '@test') {
-                        sh 'npx playwright  test --grep  "@test"  --project=chromium'
-                                                }
-            }       
+                 
          
                   }
             }
