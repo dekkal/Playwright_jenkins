@@ -8,13 +8,20 @@ pipeline {
             args '--user=root --entrypoint=""'
         }
     }
+ 
     parameters {
-       choice(name: 'Navigateur', choices: ['chromium', 'webkit', 'firefox'], description: 'Select the environment to deploy to')
-    }
-      parameters{
-        choice(name:'tags',choices:['valid','addedToCart','test'],description:'choose the tag to execute')
-    }
+        choice(
+            name: 'Navigateur',
+            choices: ['chromium', 'webkit', 'firefox'],
+            description: 'Choisir le navigateur'
+        )
 
+        choice(
+            name: 'tags',
+            choices: ['@valid', '@addedToCart', '@test'],
+            description: 'Choisir le tag Playwright'
+        )
+    }
     stages {
         stage('Display versions') {
             steps {
