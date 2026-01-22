@@ -90,7 +90,7 @@ parameters {
             script {
                 if (params.tags == '@test') {                   
                           
-                    build job: 'jobRégression'    
+                    build job: 'jobJenkinsfile2'    
             
         
            }
