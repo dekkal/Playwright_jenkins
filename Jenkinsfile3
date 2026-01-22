@@ -1,64 +1,86 @@
 pipeline {
     agent any
+
     parameters {
         choice(name: 'TAG', choices: ['@regression', '@smoke'])
-        booleanParam(name: 'ALLURE', defaultValue: false, description: 'generation de rapport allure')
+        booleanParam(
+            name: 'ALLURE',
+            defaultValue: false,
+            description: 'Génération du rapport Allure'
+        )
     }
+
     stages {
-        stage('global stage') {
+        stage('Global stage') {
             agent {
                 docker {
                     image 'mcr.microsoft.com/playwright:v1.57.0-noble'
-                    args '-u root --entrypoint='
+                    args '--user=root --entrypoint=""'
                 }
             }
+
             stages {
+
                 stage('Checkout') {
                     steps {
                         sh 'rm -rf repo25'
                         sh 'git clone https://github.com/admanehocine/PlaywrightJenkins.git repo25'
                     }
                 }
-                stage('install deps') {
+
+                stage('Install deps') {
                     steps {
                         dir('repo25') {
                             sh 'npm ci'
                         }
                     }
                 }
-               stage('run tests') {
+
+                stage('Run tests') {
                     steps {
                         dir('repo25') {
                             script {
-                                sh 'rm -rf allure-results'   // nettoyage TOTAL
+                                sh 'rm -rf allure-results'
                                 sh 'mkdir -p allure-results'
 
-                                if(params.ALLURE) {
-                                    sh "npx playwright test --grep ${params.TAG} --reporter=allure-playwright"
-                                    stash name: 'allure-results', includes: 'allure-results/**'
+                                if (params.ALLURE) {
+                                    sh """
+                                        npx playwright test \
+                                          --grep ${params.TAG} \
+                                          --reporter=allure-playwright
+                                    """
+                                    stash name: 'allure-results',
+                                          includes: 'allure-results/**',
+                                          allowEmpty: true
                                 } else {
                                     sh "npx playwright test --grep ${params.TAG}"
                                 }
                             }
                         }
                     }
-                }       
-            }
-        }
-    }
-   post {
-    success {
-        script {
-            if(params.ALLURE) {
-                dir('repo25') {
-                    sh 'rm -rf allure-results'
-                    unstash 'allure-results'
-                    archiveArtifacts artifacts: 'allure-results/**', fingerprint: true
-                    allure results: [[path: 'allure-results']]
                 }
             }
         }
     }
-}
 
+    post {
+        success {
+            script {
+                if (params.ALLURE) {
+                    echo '📊 Publication du rapport Allure'
+                    dir('repo25') {
+                        unstash 'allure-results'
+                        archiveArtifacts artifacts: 'allure-results/**',
+                                         fingerprint: true,
+                                         allowEmptyArchive: true
+                        allure results: [[path: 'allure-results']]
+                    }
+                }
+            }
+        }
+
+        failure {
+            echo '❌ Pipeline en échec'
+        }
+    }
 }
