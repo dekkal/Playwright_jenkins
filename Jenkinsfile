@@ -61,7 +61,7 @@ parameters {
                         if (params.Navigateur == 'chromium') {
                             // sh "npx playwright test --project=chromium"
     
-                            sh "npx playwright  test --grep  '@${params.tags}'  --reporter=allure-playwright --project=chromium"
+                            sh "npx playwright  test   --reporter=allure-playwright --project=chromium"
                             stash name: 'allure-results', includes: 'allure-results/*'
                           
                         } else{
