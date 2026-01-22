@@ -1,0 +1,15 @@
+stage('Lancement jobs parallèles') {
+    parallel {
+        stage('Pushplaywright') {
+            steps {
+                build job: 'jobSmoke'
+            }
+        }
+
+        stage('Tests API') {
+            steps {
+                build job: 'jobJenkinsfile2'
+            }
+        }
+    }
+}
