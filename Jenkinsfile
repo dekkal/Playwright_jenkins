@@ -90,18 +90,9 @@ parameters {
    
 // }
           
-          //build job: 'jobJenkinsfile2'
+        build job: 'jobJenkinsfile2'
        // }
 
-       always{
-        sh 'rm -rf allure-results/*'
-        unstash 'allure-results'
-        archiveArtifacts 'allure-results/*'
-        allure includeProperties: false,
-        jdk: '',
-        results: [[path: 'allure-results/']]
-      
-    }
         
 }
 
