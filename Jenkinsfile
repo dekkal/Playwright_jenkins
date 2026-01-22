@@ -72,11 +72,11 @@ pipeline {
     post{
         success {
             echo 'The pipeline has completed successfully.'
-            script {
-                if (params.tags == '@valid') { 
+            
+                
                     build job: 'jobRégression'    
-            }
-        }   
+            
+        
     }
    
 }
