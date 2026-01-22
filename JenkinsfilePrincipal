@@ -9,7 +9,7 @@ stage('Lancement jobs parallèles') {
             args '--user=root --entrypoint=""'
         }
     }
-  
+  stages {
 
     parallel {
 
@@ -52,3 +52,4 @@ stage('Lancement jobs parallèles') {
             }
         }
     }
+}
