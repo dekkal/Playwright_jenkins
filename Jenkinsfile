@@ -35,7 +35,7 @@ parameters {
 
 
     }
-     stage(" CLONE DU PROJET"){
+     stage(' CLONE DU PROJET'){
             steps{
                 //install git
                 sh 'apt-get update && apt-get install -y git'
