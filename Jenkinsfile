@@ -74,7 +74,7 @@ pipeline {
             echo 'The pipeline has completed successfully.'
             script {
                 if (params.tags == '@valid') {
-                    sh 'npx playwright --grep "@valid" test  --project=chromium'
+                    sh 'npx playwright  test --grep  "@valid"   --project=chromium'
                     build job: 'jobRégression'    
             }
         }   
