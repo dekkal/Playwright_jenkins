@@ -24,9 +24,9 @@ pipeline {
         stage(" CLONE DU PROJET"){
             steps{
                 //install git
-                sh 'apt-get update && apt-get install -y git'
+                //sh 'apt-get update && apt-get install -y git'
                 //remove repo folder if exists
-                sh "rm -rf repo"
+               // sh "rm -rf repo"
                 //clone the repo
                 //echo 'version du git'
                 //sh 'git --version'
@@ -45,7 +45,11 @@ pipeline {
                         if (params.Navigateur == 'chromium') {
                             sh "npx playwright test --project=chromium"
                         } else{
-                            error "Unsupported browser selected: ${params.Navigateur}"
+                            if (params.Navigateur == 'firefox') {
+                                sh "npx playwright test --project=firefox"
+                            } else {
+                                sh "npx playwright test --project=webkit"
+                            }
                         }
                     }   
                     sh "npx playwright test --project=chromium"
