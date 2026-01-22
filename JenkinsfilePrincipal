@@ -1,5 +1,33 @@
 stage('Lancement jobs parallèles') {
     parallel {
+
+
+
+        stage(" CLONE DU PROJET"){
+            steps{
+                //install git
+                sh 'apt-get update && apt-get install -y git'
+                //remove repo folder if exists
+                sh "rm -rf rep"
+                //clone the repo
+                echo 'version du git'
+                //clone the repo
+                sh "git clone https://github.com/admanehocine/PlaywrightJenkins.git rep"
+                //list files
+                sh "ls -la rep"
+            
+                //list files in current directory
+                  dir('rep'){
+                    //install dependencies and run tests
+                    //install playwright browsers
+                    sh "npm ci"
+                    //run tests with chromium
+                  
+                }
+            }
+        }
+        
+    }
         stage('Pushplaywright') {
             steps {
                 build job: 'jobSmoke'
@@ -12,4 +40,3 @@ stage('Lancement jobs parallèles') {
             }
         }
     }
-}
