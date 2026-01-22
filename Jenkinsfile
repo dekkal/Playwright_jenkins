@@ -87,7 +87,7 @@ parameters {
 //            }
    
 // }
-build job: 'jobJenkinsfile2'
+        //   build job: 'jobJenkinsfile2'
         }
     }
 

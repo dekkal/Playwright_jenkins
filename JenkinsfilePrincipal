@@ -22,13 +22,13 @@ pipeline {
         stage('Lancement jobs parallèles') {
             parallel {
 
-                stage('Smoke UI') {
+                stage('Pushplaywright') {
                     steps {
                         build job: 'Pushplaywright'
                     }
                 }
 
-                stage('Tests API') {
+                stage('jobJenkinsfile2') {
                     steps {
                         build job: 'jobJenkinsfile2'
                     }
@@ -39,10 +39,10 @@ pipeline {
 
     post {
         success {
-            echo '✅ Tous les jobs parallèles ont réussi'
+            echo 'Tous les jobs parallèles ont réussi'
         }
         failure {
-            echo '❌ Un job parallèle a échoué'
+            echo ' Un job parallèle a échoué'
         }
     }
 }
