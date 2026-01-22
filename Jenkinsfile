@@ -34,7 +34,7 @@ parameters {
         }
 
 
-    }
+    
      stage(' CLONE DU PROJET'){
             steps{
                 //install git
@@ -81,6 +81,7 @@ parameters {
             
 
 
+    }
     }
 
     post{
