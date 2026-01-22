@@ -75,7 +75,7 @@ pipeline {
             script {
                 if (params.tags == '@test') {
                     sh 'npx playwright --grep "@test" test  --project=chromium'
-                    build job: 'smoke'    
+               
             }
         }   
     }
