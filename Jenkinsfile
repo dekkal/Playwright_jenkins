@@ -19,6 +19,7 @@ pipeline {
                 sh 'node --version'
                 //display npm version
                 sh 'npm --version'
+                sh'git --version'
             }
         }
         stage(" CLONE DU PROJET"){
