@@ -78,7 +78,7 @@ parameters {
     }
 
     post{
-        always{ {
+        always {
             echo 'The pipeline has completed successfully.'
             script {
                 if (params.tags == '@test') {                   
