@@ -49,7 +49,9 @@ pipeline {
     post {
         always {
             script {
+                dir('repo') {
                 if(params.ALLURE) {
+                    
                     sh 'rm -rf allure-results/*'
                     unstash 'allure-results'
                     archiveArtifacts 'allure-results/*'
@@ -57,7 +59,10 @@ pipeline {
                            jdk: '',
                            results: [[path: 'allure-results/']]
                 }
+            
+            
             }
         }
     }
+}
 }
