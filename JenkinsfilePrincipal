@@ -11,7 +11,7 @@ stage('Lancement jobs parallèles') {
     }
   stages {
 
-    parallel {
+    
 
 
 
@@ -40,6 +40,7 @@ stage('Lancement jobs parallèles') {
         }
         
     }
+    parallel {
         stage('Pushplaywright') {
             steps {
                 build job: 'jobSmoke'
