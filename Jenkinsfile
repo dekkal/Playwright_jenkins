@@ -67,7 +67,7 @@ pipeline {
             echo 'The pipeline has completed successfully.'
             script {
                 if (params.tags == 'valid') {
-                    build job: 'smoke'    
+                    build job: 'jobRégression'    
             }
         }   
     }
