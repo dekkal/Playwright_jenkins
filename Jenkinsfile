@@ -74,25 +74,16 @@ parameters {
          
                   }
             }
-
-
-
-
-            
-
-
     }
     }
 
     post{
-        success {
+        always{ {
             echo 'The pipeline has completed successfully.'
             script {
                 if (params.tags == '@test') {                   
                           
-                    build job: 'jobJenkinsfile2'    
-            
-        
+                    build job: 'jobJenkinsfile2'           
            }
    
 }
