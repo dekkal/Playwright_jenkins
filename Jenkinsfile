@@ -38,9 +38,8 @@ pipeline {
                 //list files in current directory
                   dir('repo'){
                     //install dependencies and run tests
-                    sh "npm install"
                     //install playwright browsers
-                    sh "npx playwright install"
+                    sh "npm ci"
                     //run tests with chromium
                     script {
                         if (params.Navigateur == 'chromium') {
