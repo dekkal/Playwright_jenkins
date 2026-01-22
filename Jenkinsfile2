@@ -63,12 +63,16 @@ pipeline {
         }
         
     }
-    post{
+      post{
         success {
             echo 'The pipeline has completed successfully.'
-            build job: 'test'
+            script {
+                if (params.tags == 'valid') {
+                    build job: 'jobRégression'    
+            }
         }   
-
     }
+   
+}
    
 }

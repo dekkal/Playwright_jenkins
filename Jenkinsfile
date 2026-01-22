@@ -11,7 +11,6 @@ pipeline {
     parameters {
        choice(name: 'Navigateur', choices: ['chromium', 'webkit', 'firefox'], description: 'Select the environment to deploy to')
     }
-
       parameters{
         choice(name:'tags',choices:['valid','addedToCart','test'],description:'choose the tag to execute')
     }
@@ -60,9 +59,7 @@ pipeline {
                     sh "npx playwright test --project=chromium"
                 }
             }
-        }
-        
-      
+        } 
     }
 
     post{
@@ -70,9 +67,10 @@ pipeline {
             echo 'The pipeline has completed successfully.'
             script {
                 if (params.tags == 'valid') {
-                    build job: 'jobRégression'    
+                    build job: 'smoke'    
             }
         }   
     }
    
+}
 }
