@@ -70,11 +70,8 @@ parameters {
                     if (params.tags == '@test') {
                         sh 'npx playwright  test --grep  "@test"  --project=chromium'
                                                 }
-            }       script{
-                    if (params.tags == '@test') {
-                        sh 'npx playwright  test --grep  "@test"  --project=chromium'
-                                                }
-            }
+            }       
+         
                   }
             }
 
