@@ -63,7 +63,7 @@ pipeline {
                             }
                         }
                     }   
-                    sh "npx playwright test --project=chromium"
+                    sh 'npx playwright  test --grep  "@valid"  --project=chromium'
                 }
             }
         } 
@@ -73,8 +73,7 @@ pipeline {
         success {
             echo 'The pipeline has completed successfully.'
             script {
-                if (params.tags == '@valid') {
-                    sh 'npx playwright  test --grep  "@valid"  --project=chromium'
+                if (params.tags == '@valid') { 
                     build job: 'jobRégression'    
             }
         }   
