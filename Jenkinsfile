@@ -26,7 +26,7 @@ pipeline {
                 //install git
                 sh 'apt-get update && apt-get install -y git'
                 //remove repo folder if exists
-                //sh "rm -rf repo"
+                sh "rm -rf repo"
                 //clone the repo
                 //echo 'version du git'
                 //sh 'git --version'
