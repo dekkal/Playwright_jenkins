@@ -9,11 +9,17 @@ pipeline {
         }
     }
     parameters {
-       choice(name: 'Navigateur', choices: ['chromium', 'webkit', 'firefox'], description: 'Select the environment to deploy to')
-    }
+        choice(
+            name: 'Navigateur',
+            choices: ['chromium', 'webkit', 'firefox'],
+            description: 'Choisir le navigateur'
+        )
 
-      parameters{
-        choice(name:'tags',choices:['valid','addedToCart','test'],description:'choose the tag to execute')
+        choice(
+            name: 'tags',
+            choices: ['@valid', '@addedToCart', '@test'],
+            description: 'Choisir le tag Playwright'
+        )
     }
 
     stages {
@@ -67,7 +73,7 @@ pipeline {
         success {
             echo 'The pipeline has completed successfully.'
             script {
-                if (params.tags == 'valid') {
+                if (params.tags == '@test') {
                     build job: 'jobRégression'    
             }
         }   

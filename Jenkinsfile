@@ -73,7 +73,7 @@ pipeline {
         success {
             echo 'The pipeline has completed successfully.'
             script {
-                if (params.tags == 'valid') {
+                if (params.tags == '@valid') {
                     build job: 'smoke'    
             }
         }   
