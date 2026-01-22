@@ -37,14 +37,14 @@ pipeline {
                 //install git
                 sh 'apt-get update && apt-get install -y git'
                 //remove repo folder if exists
-                
+                sh "rm -rf rep"
                 //clone the repo
                 echo 'version du git'
                 sh 'git --version'
                 //clone the repo
                 sh "git clone https://github.com/admanehocine/PlaywrightJenkins.git rep"
                 //list files
-                sh "ls -la repo"
+                sh "ls -la rep"
             
                 //list files in current directory
                   dir('repo'){

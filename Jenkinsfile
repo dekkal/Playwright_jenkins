@@ -72,12 +72,11 @@ pipeline {
     post{
         success {
             echo 'The pipeline has completed successfully.'
-            
-                
+                          
                     build job: 'jobRégression'    
             
         
-    }
+           }
    
 }
 }
